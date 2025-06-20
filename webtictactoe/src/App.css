@@ -5,7 +5,12 @@
   --header-bg: #fff;
   --header-text: #20325b;
   --subtitle: #576188;
+  --border-color: #e5eaf0;
+  --preview-bg: #f4f5f7;
+  --input-bg: #f4f5f7;
+  --form-section-bg: #ffffff;
   --box-shadow: 0 2px 12px 0 rgba(32,50,91,0.06);
+  --input-radius: 6px;
 }
 
 body {
@@ -17,6 +22,8 @@ body {
 
 .resume-builder-app {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: var(--background);
 }
 
@@ -30,7 +37,7 @@ body {
 .rb-header h1 {
   margin: 0;
   color: var(--header-text);
-  font-size: 2.7rem;
+  font-size: 2.4rem;
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -38,17 +45,334 @@ body {
 .rb-subtitle {
   margin-top: 0.7rem;
   color: var(--subtitle);
-  font-size: 1.2rem;
+  font-size: 1.04rem;
+  letter-spacing: 0.01rem;
 }
 
-.rb-main-content {
-  max-width: 650px;
-  margin: 2rem auto 0 auto;
-  padding: 2rem;
-  background: #fff;
+.rb-content-grid {
+  flex: 1 0 auto;
+  display: flex;
+  gap: 2rem;
+  min-height: 60vh;
+  max-width: 1200px;
+  margin: 2.5rem auto 2rem auto;
+}
+
+.rb-inputs-pane {
+  flex: 1 1 50%;
+  min-width: 335px;
+  background: var(--form-section-bg);
+  padding: 2rem 1.4rem 2rem 2rem;
   border-radius: 12px;
   box-shadow: var(--box-shadow);
-  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.3rem;
+  align-items: stretch;
+}
+
+.rb-preview-pane {
+  flex: 1 1 50%;
+  min-width: 340px;
+  background: var(--preview-bg);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  max-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+/* Section titles */
+.rb-section-title {
+  color: var(--header-text);
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.18rem;
+  letter-spacing: 0.5px;
+}
+
+.rb-section {
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+.rb-section:last-child {
+  border-bottom: none;
+}
+
+/* Forms */
+.rb-form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.rb-form-row label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+  color: #3b4f71;
+  letter-spacing: 0.1px;
+}
+
+.rb-form-row input,
+.rb-form-row textarea {
+  padding: 0.56rem 0.78rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-radius);
+  background: var(--input-bg);
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.12s;
+}
+
+.rb-form-row input:focus,
+.rb-form-row textarea:focus {
+  border-color: var(--primary-color);
+}
+
+.rb-form-row textarea {
+  resize: vertical;
+}
+
+.rb-form-2col {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.rb-form-2col > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add/Remove buttons */
+.rb-btn {
+  margin-top: 0.25rem;
+  padding: 0.48rem 1.14rem;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--input-radius);
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  box-shadow: 0 1px 4px 0 rgba(40,103,178,0.085);
+  transition: background 0.15s;
+}
+
+.rb-btn-add,
+.rb-btn-add-skill {
+  background: var(--accent-color);
+  color: #fff;
+  margin-top: 0.9rem;
+}
+
+.rb-btn-add-skill {
+  margin-top: 0;
+  padding: 0.48rem 1.1rem;
+  font-size: 0.97rem;
+}
+
+.rb-btn-remove {
+  background: #c02c2c;
+  color: #fff;
+  margin-top: 0.75rem;
+  font-size: 0.98rem;
+}
+
+.rb-btn:disabled,
+.rb-btn-remove:disabled {
+  background: #b0bbc9;
+  cursor: not-allowed;
+}
+
+/* Blocks for education & experience */
+.rb-edu-exp-block {
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+  background: #f5f8fa;
+  padding: 1.13rem 1rem;
+  margin-bottom: 1.15rem;
+  position: relative;
+}
+
+/* Skills form */
+.rb-form-skill-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.rb-form-skill-row input[type="text"] {
+  flex: 1;
+  margin-right: 0;
+}
+
+/* Skill list */
+.rb-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.rb-skill-item {
+  background: var(--primary-color);
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.29rem 0.85rem 0.29rem 0.9rem;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.2rem;
+  position: relative;
+}
+
+.rb-skill-remove {
+  color: #fff;
+  background: none;
+  border: none;
+  margin-left: 0.58rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 3px;
+  outline: none;
+  transition: color 0.08s;
+}
+.rb-skill-remove:hover { color: #c02c2c; }
+
+/* Resume Preview styles */
+.rb-resume-preview {
+  background: #fff;
+  border-radius: 10px;
+  padding: 2rem 1.5rem;
+  min-height: 450px;
+  margin-bottom: 1.7rem;
+  box-shadow: 0 1px 6px 0 rgba(50,59,70,0.045);
+  color: #222;
+  font-size: 1rem;
+  line-height: 1.46;
+}
+
+.rb-preview-header {
+  border-bottom: 2.5px solid var(--primary-color, #2867b2);
+  padding-bottom: 1rem;
+  margin-bottom: 1.05rem;
+}
+
+.rb-preview-header h1 {
+  margin: 0 0 0.15rem 0;
+  color: var(--primary-color);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.rb-preview-contact {
+  display: flex;
+  gap: 1.35rem;
+  color: var(--subtitle);
+  font-size: 0.98rem;
+}
+
+.rb-preview-section-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.9rem 0;
+}
+
+.rb-preview-main {
+  font-weight: 600;
+  color: #20325b;
+}
+.rb-preview-sec {
+  color: #344561;
+}
+
+.rb-preview-dates {
+  font-size: 0.97rem;
+  font-style: italic;
+  color: #576188;
+  margin-left: 0.4rem;
+}
+
+.rb-preview-desc {
+  margin-top: 0.18rem;
+  color: #606c89;
+  font-size: 0.97rem;
+  line-height: 1.3;
+}
+
+.rb-preview-skills {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.83rem;
+  row-gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.rb-preview-skills span {
+  background: var(--preview-bg);
+  color: var(--header-text);
+  border-radius: 10px;
+  padding: 0.32rem 1.1rem;
+  font-size: 0.98rem;
+}
+
+/* Placeholder text */
+.rb-preview-placeholder {
+  color: #a2a9b3;
+  font-size: 1.06rem;
+  padding: 2.25rem 0;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .rb-content-grid {
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 98vw;
+    margin: 1.2rem auto 2rem auto;
+  }
+  .rb-preview-pane, .rb-inputs-pane {
+    min-width: 0;
+    padding: 2rem 1rem;
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 575px) {
+  .rb-resume-preview, .rb-inputs-pane {
+    padding: 1rem;
+    border-radius: 0;
+  }
+  .rb-preview-pane { padding: 1rem 0.2rem; }
+}
+
+.rb-footer {
+  background: none;
+  padding: 1.12rem 0 0.85rem 0;
+  font-size: 0.97rem;
+  color: #778095;
+  text-align: center;
+}
+
+.rb-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 0.5rem;
 }
 
 .rb-placeholder {
